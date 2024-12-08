@@ -1,7 +1,18 @@
 #include <iostream>
 #include <string>
 
-// Função para classificar a prioridade do requisito
+int validarEntrada(const std::string& mensagem) {
+    int valor;
+    do {
+        std::cout << mensagem;
+        std::cin >> valor;
+        if (valor < 1 || valor > 10) {
+            std::cout << "Por favor, insira um valor entre 1 e 10.\n";
+        }
+    } while (valor < 1 || valor > 10);
+    return valor;
+}
+
 std::string classificarRequisito(int impactoUsuario, int complexidadeTecnica, int recursosNecessarios) {
     if (impactoUsuario >= 8 || recursosNecessarios > 10) {
         return "Alta";
@@ -14,16 +25,13 @@ std::string classificarRequisito(int impactoUsuario, int complexidadeTecnica, in
 
 int main() {
     std::string nomeRequisito;
-    int impactoUsuario, complexidadeTecnica, recursosNecessarios;
-
+    std::cin.ignore();  // Limpa o buffer do cin
     std::cout << "Informe o nome do requisito que está sendo avaliado: ";
     getline(std::cin, nomeRequisito);
-    std::cout << "Informe o impacto no usuário (1 a 10): ";
-    std::cin >> impactoUsuario;
-    std::cout << "Informe a complexidade técnica (1 a 10): ";
-    std::cin >> complexidadeTecnica;
-    std::cout << "Informe os recursos necessários (1 a 10): ";
-    std::cin >> recursosNecessarios;
+
+    int impactoUsuario = validarEntrada("Informe o impacto no usuário (1 a 10): ");
+    int complexidadeTecnica = validarEntrada("Informe a complexidade técnica (1 a 10): ");
+    int recursosNecessarios = validarEntrada("Informe os recursos necessários (1 a 10): ");
 
     std::string prioridade = classificarRequisito(impactoUsuario, complexidadeTecnica, recursosNecessarios);
     std::cout << "A prioridade do requisito '" << nomeRequisito << "' é: " << prioridade << std::endl;
